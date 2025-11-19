@@ -11,7 +11,7 @@ def movie_list_create(request):
     if request.method == "GET":
         movies = Movie.objects.all()
         serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
         serializer = MovieSerializer(data=request.data)
@@ -26,13 +26,13 @@ def movie_retrieve_update_destroy(request, pk):
 
     if request.method == "GET":
         serializer = MovieSerializer(movie)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "PUT":
         serializer = MovieSerializer(movie, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "DELETE":
         movie.delete()
